@@ -3,6 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import utils.Utils;
 
 import java.util.List;
 
@@ -30,10 +31,12 @@ public class BlousesPage {
     }
 
     public String getAddSuccessfulMessage() {
+        Utils.waitVisibility(driver , addSuccessMsg , 3);
         return driver.findElement(addSuccessMsg).getText();
     }
 
     public CartPage clickProceedToCheckout() {
+        Utils.waitVisibility(driver , proceedToCheckoutBtn , 3);
         driver.findElement(proceedToCheckoutBtn).click();
         return new CartPage(driver);
     }
