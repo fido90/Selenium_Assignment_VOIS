@@ -19,7 +19,7 @@ public class AddToCart extends Config {
         Assert.assertTrue(successMessage.contains("Product successfully added to your shopping cart"));
     }
 
-    @Test (priority = 1 , dependsOnMethods = "addProductToCart")
+    @Test (priority = 1 , dependsOnMethods = "testAddProductToCart")
     public void confirmProductAdd() {
         CartPage cartPage = blousesPage.clickProceedToCheckout();
         String productNameInCart = cartPage.getProductName(1);

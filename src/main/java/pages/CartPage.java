@@ -13,6 +13,7 @@ public class CartPage {
     private By allProducts = By.cssSelector("#cart_summary tbody tr");
     private By productName = By.cssSelector(".cart_description p a");
     private By proceedToCheckoutBtn = By.cssSelector("#center_column [title='Proceed to checkout']");
+    private By totalAmount = By.id("total_price");
 
     public CartPage(WebDriver driver) {
         this.driver = driver;
@@ -29,5 +30,9 @@ public class CartPage {
     public LoginPage clickProceedToCheckout() {
         driver.findElement(proceedToCheckoutBtn).click();
         return new LoginPage(driver);
+    }
+
+    public String getTotalPriceInCart() {
+        return driver.findElement(totalAmount).getText();
     }
 }

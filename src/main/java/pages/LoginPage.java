@@ -59,6 +59,12 @@ public class LoginPage {
         return driver.findElement(loginSubErrorMsg).getText();
     }
 
+    //In case of accessing login page while checking out
+    public AddressPage clickLoginInCheckout() {
+        driver.findElement(loginBtn).click();
+        return new AddressPage(driver);
+    }
+
     private boolean isEmailValid() {
         driver.findElement(createAccountLabel).click();
         String classContent = driver.findElement(createAccountDiv).getAttribute("class");
