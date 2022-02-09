@@ -9,7 +9,7 @@ import testBase.Config;
 
 public class ValidSignup extends Config {
 
-    //Please enter new email each time to signup
+    /**Please enter new email each time to signup**/
     private String email = "sds878@blabla.com";
     private String password = "123456";
     private String firstName = "ahmed";
