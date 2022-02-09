@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import utils.Utils;
 
 public class ShippingPage {
 
@@ -29,6 +30,7 @@ public class ShippingPage {
     }
 
     public void closeErrorMessage() {
+        Utils.waitVisibility(driver , errorClosBtn , 3);
         driver.findElement(errorClosBtn).click();
     }
 }

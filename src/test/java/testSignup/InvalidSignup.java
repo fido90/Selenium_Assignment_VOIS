@@ -19,9 +19,10 @@ public class InvalidSignup extends Config {
     @Test (priority = 1)
     public void validateEmailFormat() {
         LoginPage loginPage = homePage.openLoginPage();
-        boolean isValid = loginPage.enterSignupEmail("mail");
-        Assert.assertFalse(isValid);
-//        terminate();
+        loginPage.enterSignupEmail("mail");
+        boolean isEmailValid = loginPage.isSignupEmailValid();
+        Assert.assertFalse(isEmailValid);
+        terminate();
     }
 
     @Test (priority = 2)
@@ -32,17 +33,18 @@ public class InvalidSignup extends Config {
         loginPage.clickCreateAccount();
         String error = loginPage.getCreateAccountError();
         Assert.assertTrue(error.contains("An account using this email address has already been registered"));
-//        terminate();
+        terminate();
     }
 
     @Test (priority = 3)
     public void testSubmitSignupFormWithEmptyFields() {
-//        startup();
+        startup();
         LoginPage loginPage = homePage.openLoginPage();
         loginPage.enterSignupEmail("tyty@oio.com");
         SignupPage signupPage = loginPage.clickCreateAccount();
         signupPage.clickRegister();
         SignupPage.SignupPageErrors errors = getErrors();
+
         Assert.assertTrue(errors.getMainError().contains("There are 8 errors"));
         Assert.assertTrue(errors.getFirstNameError().contains("firstname is required") , "First name error is not visible");
         Assert.assertTrue(errors.getLastNameError().contains("lastname is required") , "Last name error is not visible");

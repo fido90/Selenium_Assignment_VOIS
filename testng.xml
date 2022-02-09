@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Automation Practice">
+    <test name="Selenium Assignment">
+        <classes>
+            <class name="testSignup.InvalidSignup"/>
+            <class name="testSignup.ValidSignup"/>
+            <class name="testLogin.InvalidLogin"/>
+            <class name="testLogin.ValidLogin"/>
+            <class name="testAddToCart.AddToCart"/>
+            <class name="testCheckout.checkoutProcess"/>
+        </classes>
+    </test>
+</suite>

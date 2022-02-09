@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import pages.HomePage;
 import pages.SignupPage;
 
@@ -26,6 +27,17 @@ public class Config {
     @AfterClass
     public void terminate() {
         driver.quit();
+    }
+
+    @DataProvider
+    public Object[][] dataProvide() {
+        Object[][] data = new Object[3][2];
+
+        data[0][0] = "ahmed@exam.com";     data[0][1] = "123456";
+        data[1][0] = "ahmed@example.com";     data[1][1] = "654321";
+        data[2][0] = "ahmed@exam.com";     data[2][1] = "654321";
+
+        return data;
     }
 
     public SignupPage.SignupPageErrors getErrors() {

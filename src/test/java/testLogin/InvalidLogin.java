@@ -32,7 +32,7 @@ public class InvalidLogin extends Config {
         terminate();
     }
 
-    @Test
+    @Test (priority = 1)
     public void testEmptyPassword() {
         startup();
         LoginPage loginPage = homePage.openLoginPage();
@@ -45,41 +45,16 @@ public class InvalidLogin extends Config {
         terminate();
     }
 
-    @Test
-    public void testWrongEmail() {
+    @Test (dataProvider = "dataProvide")
+    public void testWrongData(String email , String password) {
         startup();
         LoginPage loginPage = homePage.openLoginPage();
-        loginPage.enterLoginData("ahmed@exam.com" , "123456");
+        loginPage.enterLoginData(email , password);
         loginPage.clickLogin();
         String mainError = loginPage.getLoginMainError();
         String subError = loginPage.getLoginSubError();
         Assert.assertTrue(mainError.contains("There is 1 error"));
         Assert.assertTrue(subError.contains("Authentication failed"));
         terminate();
-    }
-
-    @Test
-    public void testWrongPassword() {
-        startup();
-        LoginPage loginPage = homePage.openLoginPage();
-        loginPage.enterLoginData("ahmed@example.com" , "654321");
-        loginPage.clickLogin();
-        String mainError = loginPage.getLoginMainError();
-        String subError = loginPage.getLoginSubError();
-        Assert.assertTrue(mainError.contains("There is 1 error"));
-        Assert.assertTrue(subError.contains("Authentication failed"));
-        terminate();
-    }
-
-    @Test (priority = 1)
-    public void testWrongEmailAndPassword() {
-        startup();
-        LoginPage loginPage = homePage.openLoginPage();
-        loginPage.enterLoginData("ahmed@exam.com" , "654321");
-        loginPage.clickLogin();
-        String mainError = loginPage.getLoginMainError();
-        String subError = loginPage.getLoginSubError();
-        Assert.assertTrue(mainError.contains("There is 1 error"));
-        Assert.assertTrue(subError.contains("Authentication failed"));
     }
 }

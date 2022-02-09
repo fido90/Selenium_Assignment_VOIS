@@ -10,33 +10,37 @@ import testBase.Config;
 public class ValidSignup extends Config {
 
     //Please enter new email each time to signup
-    private String email = "789@blabla.com";
+    private String email = "sds878@blabla.com";
     private String password = "123456";
+    private String firstName = "ahmed";
+    private String lastName = "ezzat";
+
     private LoginPage loginPage;
     private SignupPage signupPage;
 
     @Test
     public void validateEmailFormat() {
         loginPage = homePage.openLoginPage();
-        Boolean isValid = loginPage.enterSignupEmail(email);
-        Assert.assertTrue(isValid);
+        loginPage.enterSignupEmail(email);
+        boolean isEmailValid = loginPage.isSignupEmailValid();
+        Assert.assertTrue(isEmailValid);
     }
 
     @Test (priority = 1 , dependsOnMethods = "validateEmailFormat")
     public void validateAutocompleteFields() {
         signupPage = loginPage.clickCreateAccount();
-        signupPage.fillPersonalInfo("ahmed" , "ezzat" , password);
+        signupPage.fillPersonalInfo(firstName , lastName , password);
         signupPage.fillAddressInfo("main street" , "miami" , "idaho" , "12345" , "0123456789");
         String mail = signupPage.getEmail();
         String first = signupPage.getFirstName();
         String last = signupPage.getLastName();
+
         Assert.assertEquals(mail , email , "Email is not the same");
-        //Please enter first and last name below same as in personal info
-        Assert.assertEquals(first , "ahmed" , "First name is not the same");
-        Assert.assertEquals(last , "ezzat" , "Last name is not the same");
+        Assert.assertEquals(first , firstName , "First name is not the same");
+        Assert.assertEquals(last , lastName , "Last name is not the same");
     }
 
-    @Test (priority = 2 , dependsOnMethods = {"validateEmailFormat" , "validateAutocompleteFields"})
+    @Test (priority = 2 , dependsOnMethods = "validateAutocompleteFields")
     public void testCreateAccount() {
         AccountPage accountPage = signupPage.clickRegister();
         String welcomeMessage = accountPage.getWelcomeMessage();

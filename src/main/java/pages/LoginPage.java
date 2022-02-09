@@ -7,11 +7,11 @@ import utils.Utils;
 public class LoginPage {
 
     private WebDriver driver;
-//    private By createAccountForm = By.id("create-account_form");
     private By createAccountDiv = By.cssSelector("#create-account_form .form-group");
     private By createAccountEmail = By.id("email_create");
     private By createAccountLabel = By.cssSelector("[for='email_create']");
     private By createAccountBtn = By.id("SubmitCreate");
+
     private By loginEmail = By.id("email");
     private By loginPassword = By.id("passwd");
     private By loginBtn = By.id("SubmitLogin");
@@ -24,9 +24,18 @@ public class LoginPage {
         this.driver = driver;
     }
 
-    public boolean enterSignupEmail(String email) {
+    public void enterSignupEmail(String email) {
         driver.findElement(createAccountEmail).sendKeys(email);
-        return isEmailValid();
+        driver.findElement(createAccountLabel).click();
+    }
+
+    public boolean isSignupEmailValid() {
+        String classContent = driver.findElement(createAccountDiv).getAttribute("class");
+        if (classContent.contains("ok")) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public SignupPage clickCreateAccount() {
@@ -63,15 +72,5 @@ public class LoginPage {
     public AddressPage clickLoginInCheckout() {
         driver.findElement(loginBtn).click();
         return new AddressPage(driver);
-    }
-
-    private boolean isEmailValid() {
-        driver.findElement(createAccountLabel).click();
-        String classContent = driver.findElement(createAccountDiv).getAttribute("class");
-        if (classContent.contains("ok")) {
-            return true;
-        } else {
-            return false;
-        }
     }
 }
